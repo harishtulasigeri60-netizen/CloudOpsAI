@@ -1,242 +1,242 @@
-# \# CloudOpsAI ☁️
+# CloudOpsAI 
 
-# 
 
-# \### AWS Cloud Operations \& Intelligence Platform
 
-# 
+### AWS Cloud Operations & Intelligence Platform
 
-# CloudOpsAI is an AWS-only cloud operations command center designed to provide a unified view of AWS infrastructure health, performance, operational risks, optimization opportunities, notifications, and reports.
 
-# 
 
-# It connects to a real AWS environment through an authorized IAM role and uses temporary AWS STS credentials to inspect infrastructure without requiring long-lived AWS secret keys inside the application.
+CloudOpsAI is an AWS-only cloud operations command center designed to provide a unified view of AWS infrastructure health, performance, operational risks, optimization opportunities, notifications, and reports.
 
-# 
 
-# \---
 
-# 
+It connects to a real AWS environment through an authorized IAM role and uses temporary AWS STS credentials to inspect infrastructure without requiring long-lived AWS secret keys inside the application.
 
-# \## 🚀 What CloudOpsAI Does
 
-# 
 
-# CloudOpsAI brings several operational capabilities into one command center:
+---
 
-# 
 
-# \- 🔹 Real-time EC2 infrastructure visibility
 
-# \- 🔹 CloudWatch CPU and network monitoring
+##  What CloudOpsAI Does
 
-# \- 🔹 Infrastructure health scoring
 
-# \- 🔹 Operational readiness scoring
 
-# \- 🔹 Explainable anomaly and optimization analysis
+CloudOpsAI brings several operational capabilities into one command center:
 
-# \- 🔹 Cost and savings estimation
 
-# \- 🔹 AWS SNS email notifications
 
-# \- 🔹 Infrastructure health reports
+-  Real-time EC2 infrastructure visibility
 
-# \- 🔹 S3 report storage
+-  CloudWatch CPU and network monitoring
 
-# \- 🔹 Secure AWS IAM + STS integration
+-  Infrastructure health scoring
 
-# \- 🔹 User authentication and session security
+-  Operational readiness scoring
 
-# \- 🔹 Operational activity logging
+-  Explainable anomaly and optimization analysis
 
-# \- 🔹 Interactive EC2 resource details
+-  Cost and savings estimation
 
-# \- 🔹 Dark / light interface
+-  AWS SNS email notifications
 
-# \- 🔹 Responsive professional dashboard
+-  Infrastructure health reports
 
-# 
+-  S3 report storage
 
-# \---
+-  Secure AWS IAM + STS integration
 
-# 
+-  User authentication and session security
 
-# \# 🖥️ Application Screenshots
+-  Operational activity logging
 
-# 
+-  Interactive EC2 resource details
 
-# \## Landing Page
+-  Dark / light interface
 
-# 
+-  Responsive professional dashboard
 
-# !\[CloudOpsAI Landing Page](screenshots/01-landing.png)
 
-# 
 
-# \## Secure Account Registration
+---
 
-# 
 
-# !\[CloudOpsAI Registration](screenshots/02-register.png)
 
-# 
+#  Application Screenshots
 
-# \## AWS Connection
 
-# 
 
-# !\[AWS Connection](screenshots/03-aws-connection.png)
+## Landing Page
 
-# 
 
-# \## Command Center Dashboard
 
-# 
+![CloudOpsAI Landing Page](screenshots/01-landing.png)
 
-# !\[CloudOpsAI Dashboard](screenshots/04-dashboard.png)
 
-# 
 
-# \## EC2 Infrastructure
+## Secure Account Registration
 
-# 
 
-# !\[EC2 Instances](screenshots/05-ec2-instances.png)
 
-# 
+![CloudOpsAI Registration](screenshots/02-register.png)
 
-# \## CloudWatch Monitoring
 
-# 
 
-# !\[CloudWatch Monitoring](screenshots/06-monitoring.png)
+## AWS Connection
 
-# 
 
-# \## AWS Notifications
 
-# 
+![AWS Connection](screenshots/03-aws-connection.png)
 
-# !\[SNS Notifications](screenshots/07-notifications.png)
 
-# 
 
-# \## Cost \& Savings
+## Command Center Dashboard
 
-# 
 
-# !\[Cost and Savings](screenshots/08-cost-savings.png)
 
-# 
+![CloudOpsAI Dashboard](screenshots/04-dashboard.png)
 
-# \## AI Recommendations
 
-# 
 
-# !\[AI Recommendations](screenshots/09-ai-recommendations.png)
+## EC2 Infrastructure
 
-# 
 
-# \## Reports
 
-# 
+![EC2 Instances](screenshots/05-ec2-instances.png)
 
-# !\[Infrastructure Reports](screenshots/10-reports.png)
 
-# 
 
-# \## Activity Logs
+## CloudWatch Monitoring
 
-# 
 
-# !\[Activity Logs](screenshots/11-activity-logs.png)
 
-# 
+![CloudWatch Monitoring](screenshots/06-monitoring.png)
 
-# \## Generated Infrastructure Report
 
-# 
 
-# !\[Infrastructure Health Report](screenshots/12-report-preview.png)
+## AWS Notifications
 
-# 
 
-# \---
 
-# 
+![SNS Notifications](screenshots/07-notifications.png)
 
-# \# 🏗️ Architecture
 
-# 
 
-# ```text
+## Cost & Savings
 
-# &#x20;                        ┌─────────────────────┐
 
-# &#x20;                        │     CloudOpsAI      │
 
-# &#x20;                        │   Flask Application  │
+![Cost and Savings](screenshots/08-cost-savings.png)
 
-# &#x20;                        └──────────┬──────────┘
 
-# &#x20;                                   │
 
-# &#x20;                        IAM Role + STS
+## AI Recommendations
 
-# &#x20;                        Temporary Credentials
 
-# &#x20;                                   │
 
-# &#x20;             ┌─────────────────────┼─────────────────────┐
+![AI Recommendations](screenshots/09-ai-recommendations.png)
 
-# &#x20;             │                     │                     │
 
-# &#x20;             ▼                     ▼                     ▼
 
-# &#x20;       ┌──────────┐          ┌────────────┐        ┌──────────┐
+## Reports
 
-# &#x20;       │   EC2    │          │ CloudWatch │        │   SNS    │
 
-# &#x20;       │ Resources│          │  Metrics   │        │  Alerts  │
 
-# &#x20;       └────┬─────┘          └─────┬──────┘        └────┬─────┘
+![Infrastructure Reports](screenshots/10-reports.png)
 
-# &#x20;            │                      │                    │
 
-# &#x20;            └──────────────┬───────┘                    │
 
-# &#x20;                           ▼                            │
+## Activity Logs
 
-# &#x20;                   ┌───────────────┐                    │
 
-# &#x20;                   │ Intelligence  │                    │
 
-# &#x20;                   │ \& Analysis    │                    │
+![Activity Logs](screenshots/11-activity-logs.png)
 
-# &#x20;                   └───────┬───────┘                    │
 
-# &#x20;                           │                            │
 
-# &#x20;                ┌──────────┼──────────┐                 │
+## Generated Infrastructure Report
 
-# &#x20;                ▼          ▼          ▼                 ▼
 
-# &#x20;             Health      Cost      AI / Rules        Email
 
-# &#x20;             Score     Analysis   Recommendations   Notifications
+![Infrastructure Health Report](screenshots/12-report-preview.png)
 
-# 
 
-# &#x20;                           │
 
-# &#x20;                           ▼
+---
 
-# &#x20;                      ┌─────────┐
 
-# &#x20;                      │ S3/PDF  │
 
-# &#x20;                      │ Reports │
+#  Architecture
 
-# &#x20;                      └─────────┘
+
+
+```text
+
+&#x20;                        
+
+&#x20;                             CloudOpsAI      
+
+&#x20;                           Flask Application  
+
+&#x20;                        
+
+&#x20;                                   
+
+&#x20;                        IAM Role + STS
+
+&#x20;                        Temporary Credentials
+
+&#x20;                                   
+
+&#x20;             
+
+&#x20;                                                       
+
+&#x20;                                                       
+
+&#x20;                         
+
+&#x20;          EC2               CloudWatch            SNS    
+
+&#x20;        Resources            Metrics             Alerts  
+
+&#x20;                         
+
+&#x20;                                                      
+
+&#x20;                                
+
+&#x20;                                                       
+
+&#x20;                                       
+
+&#x20;                    Intelligence                      
+
+&#x20;                    & Analysis                        
+
+&#x20;                                       
+
+&#x20;                                                       
+
+&#x20;                                 
+
+&#x20;                                                     
+
+&#x20;             Health      Cost      AI / Rules        Email
+
+&#x20;             Score     Analysis   Recommendations   Notifications
+
+
+
+&#x20;                           
+
+&#x20;                           
+
+&#x20;                      
+
+&#x20;                       S3/PDF  
+
+&#x20;                       Reports 
+
+&#x20;                      
 
