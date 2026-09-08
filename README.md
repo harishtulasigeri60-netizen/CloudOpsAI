@@ -170,7 +170,7 @@ CloudOpsAI brings several operational capabilities into one command center:
 
 ```mermaid
 flowchart TD
-    A["CloudOpsAI<br/>Flask Application"]
+    A["CloudOpsAI - Flask Application"]
     B["IAM Role + STS<br/>Temporary Credentials"]
 
     C["Amazon EC2<br/>Resources"]
