@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Notifications — CloudOpsAI{% endblock %}
+{% block heading %}Notifications{% endblock %}
+{% block subtitle %}Amazon SNS delivery and email subscription status for this AWS connection.{% endblock %}
+{% block content %}
+<section class="page-grid">
+  <div class="panel">
+    <div class="panel-head"><div><span class="eyebrow">AMAZON SNS</span><h3>Delivery status</h3></div><span class="status-tag {{ 'good' if notification_status.confirmed else ('warn' if notification_status.configured else 'warn') }}">{{ 'Confirmed' if notification_status.confirmed else ('Ready to configure' if not notification_status.configured else 'Action needed') }}</span></div>
+    <p class="muted">{{ notification_status.message }}</p>
+    <div class="status-box"><span class="dot {{ 'ok' if notification_status.configured else 'bad' }}"></span><div><b>{{ 'SNS topic configured' if notification_status.configured else 'SNS topic not configured' }}</b><small>{% if notification_status.configured %}The topic is associated with this AWS connection.{% else %}Add an SNS topic ARN on the AWS Connection page before using email alerts.{% endif %}</small></div></div>
+    <form method="post" action="{{ url_for('subscribe') }}" class="inline-form"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><input type="email" name="email" placeholder="you@example.com" autocomplete="email" required><button class="primary-btn small" type="submit">Subscribe Email</button></form>
+    <div class="button-row"><form method="post" action="{{ url_for('send_test_email') }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button class="ghost-btn" type="submit">Send Test Notification</button></form><form method="post" action="{{ url_for('send_report') }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button class="ghost-btn" type="submit">Send Health Report</button></form><a class="ghost-btn" href="{{ url_for('connect_aws') }}">AWS Connection</a></div>
+    <div class="connect-note"><b>Email confirmation:</b> Amazon SNS sends a confirmation message when a new email endpoint is subscribed. The endpoint must be confirmed before SNS can deliver notifications.</div>
+  </div>
+  <div class="panel">
+    <div class="panel-head"><div><span class="eyebrow">SUBSCRIPTIONS</span><h3>Email endpoints</h3></div></div>
+    {% for s in notification_status.subscriptions %}<div class="incident"><span class="dot {{ 'ok' if s.status=='confirmed' else 'bad' }}"></span><div><b>{{ s.endpoint }}</b><small>{{ s.protocol }}</small></div><span class="status-tag {{ 'good' if s.status=='confirmed' else 'warn' }}">{{ s.status }}</span></div>{% else %}<div class="empty">No SNS email subscriptions are visible for this topic.</div>{% endfor %}
+  </div>
+</section>
+{% endblock %}

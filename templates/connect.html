@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}AWS Connection — CloudOpsAI{% endblock %}
+{% block heading %}AWS Connection{% endblock %}
+{% block subtitle %}Authorize the AWS environment CloudOpsAI should monitor using IAM roles and temporary STS credentials.{% endblock %}
+{% block content %}
+<section class="connect-page">
+  <div class="connect-hero"><span class="pill">AWS ONLY • IAM + STS</span><h2>Connect your AWS environment securely.</h2><p>CloudOpsAI never asks for a long-lived AWS secret key. It uses the IAM role you authorize and obtains temporary STS credentials when it needs to read your infrastructure.</p></div>
+  {% if error|default('') %}<div class="form-error wide">{{ error }}</div>{% endif %}
+  <div class="connect-layout wide">
+    <div class="connect-card">
+      <form method="post" novalidate>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <label>AWS IAM Role ARN<input name="role_arn" autocomplete="off" placeholder="arn:aws:iam::123456789012:role/CloudOpsAIReadOnlyRole" value="{{ role_arn if role_arn is defined else (connection.role_arn if connection else '') }}" required></label>
+        <label>SNS Topic ARN <span class="hint">Optional — email alerts</span><input name="topic_arn" autocomplete="off" placeholder="arn:aws:sns:region:account:topic" value="{{ connection.topic_arn if connection else '' }}"></label>
+        <label>S3 Bucket <span class="hint">Optional — report storage</span><input name="bucket_name" autocomplete="off" placeholder="cloudopsai-reports" value="{{ connection.bucket_name if connection else '' }}"></label>
+        <label>AWS Region<select name="region"><option value="ap-south-1" {{ 'selected' if region=='ap-south-1' }}>ap-south-1 · Mumbai</option><option value="us-east-1" {{ 'selected' if region=='us-east-1' }}>us-east-1 · N. Virginia</option><option value="us-west-2" {{ 'selected' if region=='us-west-2' }}>us-west-2 · Oregon</option><option value="eu-west-1" {{ 'selected' if region=='eu-west-1' }}>eu-west-1 · Ireland</option></select></label>
+        <button class="primary-btn" type="submit">Test & Connect AWS <span>→</span></button>
+      </form>
+      <div class="connect-note"><b>One-time setup:</b> create or authorize the IAM role in the AWS account you want monitored. Once verified, CloudOpsAI stores the connection details for your user account; you do not repeat the role setup on every visit.</div>
+    </div>
+    <div class="connect-guide">
+      <div class="guide-card"><div class="guide-number">1</div><h3>Authorize access</h3><p>The AWS role trust policy should allow only the identity running CloudOpsAI to call <b>sts:AssumeRole</b>.</p></div>
+      <div class="guide-card"><div class="guide-number">2</div><h3>Keep permissions minimal</h3><p>Grant only the EC2 and CloudWatch read permissions required for monitoring. SNS and S3 permissions are needed only when those features are enabled.</p></div>
+      <div class="guide-card"><div class="guide-number">3</div><h3>Temporary credentials</h3><p>CloudOpsAI exchanges the role authorization for short-lived STS credentials instead of storing permanent AWS secrets.</p></div>
+    </div>
+  </div>
+  {% if connection %}<div class="connection-status"><span class="dot ok"></span><b>Connected</b><span>{{ connection.account_id }}</span><small>Last verified {{ connection.last_checked }}</small></div>{% endif %}
+</section>
+{% endblock %}

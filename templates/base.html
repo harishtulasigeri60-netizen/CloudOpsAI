@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#070b16"><meta name="color-scheme" content="dark light">
+<title>{% block title %}CloudOpsAI{% endblock %}</title>
+<link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
+</head>
+<body>
+<div class="ambient" aria-hidden="true"><span></span><span></span><span></span></div>
+<div class="shell">
+<aside class="sidebar" id="sidebar">
+  <div class="brand"><div class="brand-icon" aria-hidden="true">☁</div><div><b>CloudOps<span>AI</span></b><small>AWS OPERATIONS</small></div></div>
+  <nav aria-label="Primary navigation">
+  {% set nav=[('dashboard','⌂','Dashboard','/dashboard'),('ec2','▦','EC2 Instances','/ec2'),('analytics','◔','Monitoring','/analytics'),('alarms','!','Alarms','/alarms'),('notifications','✉','Notifications','/notifications'),('cost','$','Cost & Savings','/cost'),('recommendations','✦','AI Recommendations','/recommendations'),('reports','▤','Reports','/reports'),('logs','≡','Activity Logs','/logs'),('connect_aws','↔','AWS Connection','/connect')] %}
+  {% for endpoint,icon,label,path in nav %}<a class="nav {{ 'active' if request.endpoint==endpoint or (endpoint=='ec2' and request.endpoint=='instance_detail') else '' }}" href="{{ url_for(endpoint) }}"><span class="nav-icon" aria-hidden="true">{{ icon }}</span><span>{{ label }}</span>{% if endpoint=='alarms' and active_alerts|default(0)>0 %}<em>{{ active_alerts }}</em>{% endif %}</a>{% endfor %}
+  </nav>
+  <div class="side-status"><span class="dot {{ 'ok' if aws_connected else 'bad' }}"></span><div><b>{{ 'AWS Connected' if aws_connected else 'AWS Offline' }}</b><small>{{ region }}</small></div></div>
+</aside>
+<div class="sidebar-overlay" id="sidebarOverlay" data-action="close-sidebar"></div>
+<main class="main">
+<header class="top">
+  <div class="top-leading"><button class="icon-btn mobile" type="button" data-action="toggle-sidebar" aria-label="Open navigation">☰</button>{% if request.endpoint not in ['dashboard','home'] %}<button class="icon-btn back-btn" type="button" data-action="back-dashboard" aria-label="Go back" title="Back">←</button>{% endif %}<div><span class="eyebrow">AWS CLOUD OPERATIONS</span><h1>{% block heading %}Command Center{% endblock %}</h1><p>{% block subtitle %}Monitor, analyze, optimize and protect your AWS infrastructure.{% endblock %}</p></div></div>
+  <div class="top-actions"><span class="live"><i></i>{{ 'LIVE' if aws_connected else 'OFFLINE' }}</span><a class="icon-btn" href="{{ url_for('connect_aws') }}" title="AWS connection" aria-label="AWS connection">↔</a><button class="icon-btn" type="button" data-action="refresh" title="Refresh" aria-label="Refresh">↻</button><button class="icon-btn theme-btn" type="button" data-action="theme" title="Switch theme" aria-label="Switch theme"><span data-theme-icon>☾</span></button><div class="profile"><span>{{ (current_user['name'][0] if current_user else 'U')|upper }}</span><div><b>{{ current_user['name'] if current_user else 'User' }}</b><small>AWS Operator</small></div></div><form method="post" action="{{ url_for('logout') }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button class="icon-btn" type="submit" title="Logout" aria-label="Logout">⇥</button></form></div>
+</header>
+{% with msgs=get_flashed_messages(with_categories=true) %}{% if msgs %}<div class="toasts">{% for cat,msg in msgs %}<div class="toast {{ cat }}"><span>{{ '✓' if cat=='success' else '!' }}</span><span>{{ msg }}</span><button type="button" data-action="dismiss-toast" aria-label="Dismiss">×</button></div>{% endfor %}</div>{% endif %}{% endwith %}
+{% block content %}{% endblock %}
+</main></div>
+<script src="{{ url_for('static',filename='js/dashboard.js') }}"></script>{% block scripts %}{% endblock %}
+</body></html>
