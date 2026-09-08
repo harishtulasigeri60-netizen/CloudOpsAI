@@ -166,77 +166,42 @@ CloudOpsAI brings several operational capabilities into one command center:
 
 
 
-#  Architecture
+# Architecture
 
+```mermaid
+flowchart TD
+    A["CloudOpsAI<br/>Flask Application"]
+    B["IAM Role + STS<br/>Temporary Credentials"]
 
+    C["Amazon EC2<br/>Resources"]
+    D["Amazon CloudWatch<br/>Metrics & Alarms"]
+    E["Amazon SNS<br/>Notifications"]
 
-```text
+    F["CloudOpsAI Intelligence & Analysis"]
 
-&#x20;                        
+    G["Infrastructure<br/>Health Score"]
+    H["Cost & Savings<br/>Analysis"]
+    I["AI / Rule-Based<br/>Recommendations"]
+    J["Email<br/>Notifications"]
 
-&#x20;                             CloudOpsAI      
+    K["Amazon S3<br/>Report Storage"]
+    L["PDF<br/>Infrastructure Reports"]
 
-&#x20;                           Flask Application  
+    A --> B
+    B --> C
+    B --> D
+    B --> E
 
-&#x20;                        
+    C --> F
+    D --> F
 
-&#x20;                                   
+    F --> G
+    F --> H
+    F --> I
+    F --> E
 
-&#x20;                        IAM Role + STS
-
-&#x20;                        Temporary Credentials
-
-&#x20;                                   
-
-&#x20;             
-
-&#x20;                                                       
-
-&#x20;                                                       
-
-&#x20;                         
-
-&#x20;          EC2               CloudWatch            SNS    
-
-&#x20;        Resources            Metrics             Alerts  
-
-&#x20;                         
-
-&#x20;                                                      
-
-&#x20;                                
-
-&#x20;                                                       
-
-&#x20;                                       
-
-&#x20;                    Intelligence                      
-
-&#x20;                    & Analysis                        
-
-&#x20;                                       
-
-&#x20;                                                       
-
-&#x20;                                 
-
-&#x20;                                                     
-
-&#x20;             Health      Cost      AI / Rules        Email
-
-&#x20;             Score     Analysis   Recommendations   Notifications
-
-
-
-&#x20;                           
-
-&#x20;                           
-
-&#x20;                      
-
-&#x20;                       S3/PDF  
-
-&#x20;                       Reports 
-
-&#x20;                      
+    E --> J
+    F --> L
+    L --> K
+```
 
