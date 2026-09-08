@@ -1,57 +1,242 @@
-# CloudOpsAI
+# \# CloudOpsAI ☁️
 
-CloudOpsAI is an AWS-only cloud operations command center for EC2 and CloudWatch visibility, explainable anomaly/optimization analysis, SNS notifications, reports, and operational scoring.
+# 
 
-## Real AWS architecture
+# \### AWS Cloud Operations \& Intelligence Platform
 
-CloudOpsAI uses an IAM role and AWS STS temporary credentials for a connected AWS environment. It does not require users to paste long-lived AWS secret keys into the application.
+# 
 
-The application stores the user's CloudOpsAI account separately from the AWS connection record. Each connection is associated with its CloudOpsAI user.
+# CloudOpsAI is an AWS-only cloud operations command center designed to provide a unified view of AWS infrastructure health, performance, operational risks, optimization opportunities, notifications, and reports.
 
-## Quick start
+# 
 
-```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
-Copy-Item .env.example .env
-python app.py
-```
+# It connects to a real AWS environment through an authorized IAM role and uses temporary AWS STS credentials to inspect infrastructure without requiring long-lived AWS secret keys inside the application.
 
-Open `http://127.0.0.1:5000`.
+# 
 
-Set `CLOUDOPSAI_SECRET` in `.env` to a strong persistent random value. Never commit `.env` or AWS credentials.
+# \---
 
-## AWS connection
+# 
 
-1. Create an IAM role in the AWS account to be monitored.
-2. The role trust policy should allow only the identity running CloudOpsAI to call `sts:AssumeRole`.
-3. Grant only the AWS permissions required by the features you enable.
-4. Enter the role ARN and AWS region on **AWS Connection**.
-5. CloudOpsAI verifies the role with STS and then uses temporary credentials for AWS API calls.
+# \## 🚀 What CloudOpsAI Does
 
-For EC2 and CloudWatch monitoring, the minimum policy in the application documentation is based on `ec2:DescribeInstances`, `ec2:DescribeInstanceStatus`, `ec2:DescribeTags`, `cloudwatch:GetMetricData`, `cloudwatch:GetMetricStatistics`, `cloudwatch:ListMetrics`, and `cloudwatch:DescribeAlarms`.
+# 
 
-SNS email delivery requires an SNS topic and the corresponding SNS permissions on the monitoring role. New email subscriptions must be confirmed from the SNS confirmation message before delivery begins. A reference least-privilege policy is included in `aws/CloudOpsAI-MonitoringPolicy.json`.
+# CloudOpsAI brings several operational capabilities into one command center:
 
-S3 report upload requires an S3 bucket and the corresponding S3 write permission on the monitoring role.
+# 
 
-## Security controls
+# \- 🔹 Real-time EC2 infrastructure visibility
 
-- PBKDF2-SHA256 password hashing with per-password random salt.
-- CSRF protection on state-changing requests.
-- HTTP-only, SameSite session cookies.
-- Optional Secure session cookies for HTTPS deployments.
-- Login failure throttling/temporary lockout.
-- Least-privilege AWS role design.
-- STS temporary credentials rather than stored AWS secret keys.
-- Per-user AWS connection records.
-- Security response headers and a self-hosted frontend with no runtime CDN dependency.
-- Input validation for email addresses and IAM role ARNs.
+# \- 🔹 CloudWatch CPU and network monitoring
 
-## Important deployment note
+# \- 🔹 Infrastructure health scoring
 
-The included SQLite database is intended for local development, portfolio demonstrations, and small single-process deployments. A production multi-instance deployment should use a managed relational database and an appropriate secret/session strategy.
+# \- 🔹 Operational readiness scoring
 
-Cost figures in the current application are transparent presentation estimates, not AWS Cost Explorer billing data.
+# \- 🔹 Explainable anomaly and optimization analysis
+
+# \- 🔹 Cost and savings estimation
+
+# \- 🔹 AWS SNS email notifications
+
+# \- 🔹 Infrastructure health reports
+
+# \- 🔹 S3 report storage
+
+# \- 🔹 Secure AWS IAM + STS integration
+
+# \- 🔹 User authentication and session security
+
+# \- 🔹 Operational activity logging
+
+# \- 🔹 Interactive EC2 resource details
+
+# \- 🔹 Dark / light interface
+
+# \- 🔹 Responsive professional dashboard
+
+# 
+
+# \---
+
+# 
+
+# \# 🖥️ Application Screenshots
+
+# 
+
+# \## Landing Page
+
+# 
+
+# !\[CloudOpsAI Landing Page](screenshots/01-landing.png)
+
+# 
+
+# \## Secure Account Registration
+
+# 
+
+# !\[CloudOpsAI Registration](screenshots/02-register.png)
+
+# 
+
+# \## AWS Connection
+
+# 
+
+# !\[AWS Connection](screenshots/03-aws-connection.png)
+
+# 
+
+# \## Command Center Dashboard
+
+# 
+
+# !\[CloudOpsAI Dashboard](screenshots/04-dashboard.png)
+
+# 
+
+# \## EC2 Infrastructure
+
+# 
+
+# !\[EC2 Instances](screenshots/05-ec2-instances.png)
+
+# 
+
+# \## CloudWatch Monitoring
+
+# 
+
+# !\[CloudWatch Monitoring](screenshots/06-monitoring.png)
+
+# 
+
+# \## AWS Notifications
+
+# 
+
+# !\[SNS Notifications](screenshots/07-notifications.png)
+
+# 
+
+# \## Cost \& Savings
+
+# 
+
+# !\[Cost and Savings](screenshots/08-cost-savings.png)
+
+# 
+
+# \## AI Recommendations
+
+# 
+
+# !\[AI Recommendations](screenshots/09-ai-recommendations.png)
+
+# 
+
+# \## Reports
+
+# 
+
+# !\[Infrastructure Reports](screenshots/10-reports.png)
+
+# 
+
+# \## Activity Logs
+
+# 
+
+# !\[Activity Logs](screenshots/11-activity-logs.png)
+
+# 
+
+# \## Generated Infrastructure Report
+
+# 
+
+# !\[Infrastructure Health Report](screenshots/12-report-preview.png)
+
+# 
+
+# \---
+
+# 
+
+# \# 🏗️ Architecture
+
+# 
+
+# ```text
+
+# &#x20;                        ┌─────────────────────┐
+
+# &#x20;                        │     CloudOpsAI      │
+
+# &#x20;                        │   Flask Application  │
+
+# &#x20;                        └──────────┬──────────┘
+
+# &#x20;                                   │
+
+# &#x20;                        IAM Role + STS
+
+# &#x20;                        Temporary Credentials
+
+# &#x20;                                   │
+
+# &#x20;             ┌─────────────────────┼─────────────────────┐
+
+# &#x20;             │                     │                     │
+
+# &#x20;             ▼                     ▼                     ▼
+
+# &#x20;       ┌──────────┐          ┌────────────┐        ┌──────────┐
+
+# &#x20;       │   EC2    │          │ CloudWatch │        │   SNS    │
+
+# &#x20;       │ Resources│          │  Metrics   │        │  Alerts  │
+
+# &#x20;       └────┬─────┘          └─────┬──────┘        └────┬─────┘
+
+# &#x20;            │                      │                    │
+
+# &#x20;            └──────────────┬───────┘                    │
+
+# &#x20;                           ▼                            │
+
+# &#x20;                   ┌───────────────┐                    │
+
+# &#x20;                   │ Intelligence  │                    │
+
+# &#x20;                   │ \& Analysis    │                    │
+
+# &#x20;                   └───────┬───────┘                    │
+
+# &#x20;                           │                            │
+
+# &#x20;                ┌──────────┼──────────┐                 │
+
+# &#x20;                ▼          ▼          ▼                 ▼
+
+# &#x20;             Health      Cost      AI / Rules        Email
+
+# &#x20;             Score     Analysis   Recommendations   Notifications
+
+# 
+
+# &#x20;                           │
+
+# &#x20;                           ▼
+
+# &#x20;                      ┌─────────┐
+
+# &#x20;                      │ S3/PDF  │
+
+# &#x20;                      │ Reports │
+
+# &#x20;                      └─────────┘
+
